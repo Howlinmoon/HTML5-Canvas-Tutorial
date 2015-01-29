@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>HTML5 Canvas Tutorial lesson 08</title>
+	<style>
+		body { margin: 40px; background: #666; }
+		#my_canvas { background: #fff; border: #000 1px solid;}
+	</style>
+	
+	<script>
+	
+	function draw() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		console.log(ctx.canvas.id+" | "+ctx.canvas.width+" | "+ctx.canvas.height);
+		
+		
+		ctx.fillStyle = "#FC0"
+		ctx.fillRect(50, 50, 100, 100);
+		// ctx.scale(.5, .5); // default is 1,1
+		// ctx.rotate(.15) // rotation from the top left of the canvas
+		//ctx.translate(0,50); \\ a relative offset to all following plots
+		//ctx.transform(xScale, ySkew, xSkew, yScale, xTrans, yTrans)  scale changes size, skew rotates, trans moves
+		//ctx.transform(1, 0, 0, 1, 0, 0) // defaults
+		ctx.transform(1, .1, 0, 1, 0 , 0)
+		ctx.fillRect(300, 50, 100, 100);
+		ctx.fillRect(500, 50, 100, 100);
+		
+
+	}
+	
+	window.onload = draw;
+	</script>
+	
+</head>
+
+<body>
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+<script>
+
+</script>
+
+<canvas id="my_canvas" width="800" height = "600"></canvas>
+
+
+</body>
+</html>
