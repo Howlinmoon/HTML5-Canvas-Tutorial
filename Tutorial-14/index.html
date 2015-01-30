@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>HTML5 Canvas Tutorial lesson 14</title>
+	<style>
+		body { margin: 40px; background: #666; }
+		#my_canvas { background: #fff; border: #000 1px solid;}
+	</style>
+	
+	<script>
+	
+	function initCanvas() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		console.log(ctx.canvas.id+" | "+ctx.canvas.width+" | "+ctx.canvas.height);
+
+        ctx.canvas.addEventListener('mousemove', function (event) {
+       		var mouseX = event.clientX - ctx.canvas.offsetLeft;
+       		var mouseY = event.clientY - ctx.canvas.offsetTop;
+       		var status = document.getElementById('status');
+       		status.innerHTML = mouseX+" | "+mouseY;
+        });
+
+        ctx.canvas.addEventListener('click', function (event) {
+       		var mouseX = event.clientX - ctx.canvas.offsetLeft;
+       		var mouseY = event.clientY - ctx.canvas.offsetTop;
+       		var status = document.getElementById('status');
+       		//alert(mouseX+" | "+mouseY);
+       		ctx.fillStyle = "orange";
+       		ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
+        });
+
+	}
+	
+	window.addEventListener('load', function(event) {
+		// call initCanvas on load
+		initCanvas();
+		
+	});
+	
+	</script>
+	
+</head>
+
+<body>
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+<script>
+
+</script>
+
+<canvas id="my_canvas" width="800" height = "600"></canvas>
+<h2 id="status">0 | 0</h2>
+
+</body>
+</html>
