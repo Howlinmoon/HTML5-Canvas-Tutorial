@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>HTML5 Canvas Tutorial lesson 11</title>
+	<style>
+		body { margin: 40px; background: #666; }
+		#my_canvas { background: #fff; border: #000 1px solid;}
+	</style>
+	
+	<script>
+	
+	function draw() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		console.log(ctx.canvas.id+" | "+ctx.canvas.width+" | "+ctx.canvas.height);
+			
+		ctx.fillStyle = "magenta";
+		var rectW = 100;
+		var rectH = 100;
+		var rectX = ctx.canvas.width/2 - rectW/2;
+		var rectY = ctx.canvas.height/2 - rectH/2;
+		
+		
+		ctx.fillRect(rectX, rectY, rectW, rectH);
+
+		
+//		ctx.fillStyle = "blue";
+//		ctx.fillRect(40,40, 100, 100);
+	}
+	
+	window.onload = draw;
+	</script>
+	
+</head>
+
+<body>
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+<script>
+
+</script>
+
+<canvas id="my_canvas" width="800" height = "600"></canvas>
+
+
+</body>
+</html>
