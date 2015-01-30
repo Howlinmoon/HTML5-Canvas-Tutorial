@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>HTML5 Canvas Tutorial lesson 13</title>
+	<style>
+		body { margin: 40px; background: #666; }
+		#my_canvas { background: #fff; border: #000 1px solid;}
+	</style>
+	
+	<script>
+	
+	function initCanvas() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		console.log(ctx.canvas.id+" | "+ctx.canvas.width+" | "+ctx.canvas.height);
+		var cW = ctx.canvas.width, cH = ctx.canvas.height;
+		
+		var y = 0;
+		var x = 0;
+		
+        var animateInterval = setInterval(animate, 30);
+        ctx.canvas.addEventListener('click', function(event) {
+        		clearInterval(animateInterval);
+        });
+
+        function rectObj() {
+        		// this will create rectangle objects with their x,y and width properties defaulted to 0.
+        		this.x = 0, this.y = 0, this.w = 0;
+        		this.render = function (ctx, rx, ry, rw, rh, clr) {
+        			ctx.fillStyle = clr;
+        			ctx.fillRect(rx, ry, rw, rh);
+        		}
+        }
+        
+        // don't want to create them in the animate function
+        var rect1 = new rectObj();
+        var rect2 = new rectObj();
+        // override the default widths
+        rect1.w = 50;
+        rect2.w = 50;
+        // override the 2nd rectangle y
+        rect2.y = 100;
+        
+		function animate() {
+			ctx.clearRect(0, 0, cW, cH);
+			// Draw Here
+			rect1.render(ctx, rect1.x, rect1.y, rect1.w, 50, "magenta");
+			rect2.render(ctx, rect2.x, rect2.y, rect2.w, 50, "blue");
+			rect1.y++;
+			rect2.x++;
+			
+		}
+		
+		
+	}
+	
+	window.addEventListener('load', function(event) {
+		// call initCanvas on load
+		initCanvas();
+		
+	});
+	
+	</script>
+	
+</head>
+
+<body>
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+<script>
+
+</script>
+
+<canvas id="my_canvas" width="800" height = "600"></canvas>
+
+
+</body>
+</html>
