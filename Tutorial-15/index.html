@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>HTML5 Canvas Tutorial lesson 15</title>
+	<style>
+		body { margin: 40px; background: #666; }
+		#my_canvas { background: #fff; border: #000 1px solid;}
+	</style>
+	
+	<script>
+	
+	var bg = new Image();
+	bg.src = "backgroundImage.png";
+	
+	function initCanvas() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		console.log(ctx.canvas.id+" | "+ctx.canvas.width+" | "+ctx.canvas.height);
+		var cW = ctx.canvas.width, cH = ctx.canvas.height;
+		
+		function Background() {
+			this.x = 0, this.y = 0, this.w = bg.width, this.h = bg.height;
+			this.render = function() {
+				ctx.drawImage(bg, this.x--, 0);
+				if (this.x <= -499) {
+					this.x = 0;
+				}
+			}
+			
+		}
+		
+		var background = new Background();
+
+		var animateInterval = setInterval(animate, 30);
+        ctx.canvas.addEventListener('click', function(event) {
+        		clearInterval(animateInterval);
+        });
+
+        
+		function animate() {
+			ctx.save();
+			ctx.clearRect(0, 0, cW, cH);
+			// Draw Here
+			background.render();
+			ctx.restore();
+		}
+		
+		
+	}
+	
+	window.addEventListener('load', function(event) {
+		// call initCanvas on load
+		initCanvas();
+		
+	});
+	
+	</script>
+	
+</head>
+
+<body>
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+<script>
+
+</script>
+
+<div id="canvas container><canvas id="my_canvas" width="1000" height = "500"></canvas></div>
+
+
+</body>
+</html>
