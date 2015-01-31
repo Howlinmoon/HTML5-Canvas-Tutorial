@@ -37,15 +37,96 @@ function initCanvas() {
 				ctx.fillRect(enemies[i].x, enemies[i].y+=.5, enemies[i].w, enemies[i].h);
 			}
 		}
+		
+		function Launcher() {
+			this.y = 280, this.x = cW * .5 - 25, this.w = 50, this.h = 50, this.dir, this.bg="orange", this.missiles = [];
+			this.render = function () {
+				if (this.dir == 'left') {
+					this.x -=5;
+				} else if (this.dir == 'right') {
+					this.x +=5;
+				}
+				ctx.fillStyle = this.bg;
+				ctx.fillRect(this.x, this.y, this.w, this.h);
+				
+				// check to see if any of the active missiles have hit anything
+				for (var i = 0; i < this.missiles.length; i++) {
+					var m = this.missiles[i];
+					ctx.fillStyle = m.bg;
+					// y -= 5, moves the missile up 5px a frame
+					ctx.fillRect(m.x, m.y-=5, m.w, m.h);
+					this.hitDetect(this.missiles[i], i);
+					// has the missile moved off the screen?
+					if (m.y <= 0) {
+						// yes, remove it from the array of missiles
+						this.missiles.splice(i,1);
+					}
+				}
+				
+				// no more enemies?
+				if (enemies.length == 0) {
+					clearInterval(animateInterval);  // stop the animation loop
+					ctx.fillStyle = '#FC0';
+					ctx.font = "italic bold 36px Arial, sans-serif";
+					ctx.fillText('Level Complete', cW * .5 - 130, 50, 300);
+				}
+			}
+			
+			this.hitDetect = function(m, mi) {
+				for (var i = 0; i < enemies.length; i++) {
+					var e = enemies[i];
+					// check to see if the missile is inside of an enemy bounding box
+					if (m.x + m.w >= e.x && m.x <= e.x + e.w && m.y >= e.y && m.y <= e.y + e.h) {
+						// yes
+						this.missiles.splice(this.missiles[mi], 1); // remove the missile from the array
+						enemies.splice(i,1); // also remove the enemy from its array
+						// flag it 
+						document.getElementById('status').innerHTML = "You Destroyed "+e.id;
+					}
+				}
+			}
+		}
+		
+		var launcher = new Launcher();
 
 		function animate() {
 			// ctx.save();
 			ctx.clearRect(0, 0, cW, cH);
+			launcher.render();
 			renderEnemies();
 			// ctx.restore();
 		}
+		
 		var animateInterval = setInterval(animate, 30);
+		var left_btn  = document.getElementById('left_btn');
+		var right_btn = document.getElementById('right_btn');
+		var fire_btn   = document.getElementById('fire_btn');
+		
+		// add the event listeners
+		// move left button mouse down
+		left_btn.addEventListener('mousedown', function (event) {
+			launcher.dir = 'left';
+		});
 
+		// move left button mouse up
+		left_btn.addEventListener('mouseup', function (event) {
+			launcher.dir = '';
+		});
+		
+		// move right button mouse down
+		right_btn.addEventListener('mousedown', function (event) {
+			launcher.dir = 'right';
+		});
+
+		// move right button mouse up
+		right_btn.addEventListener('mouseup', function (event) {
+			launcher.dir = '';
+		});
+		
+		// fire button mouse down
+		fire_btn.addEventListener('mousedown', function (event) {
+			launcher.missiles.push({"x" : launcher.x + launcher.w * .5, "y" : launcher.y, "w" : 3, "h" : 10, "bg" : "red"});
+		});
 		
 	}
 	
