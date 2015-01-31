@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>HTML5 Canvas Tutorial lesson 19</title>
+<style type="text/css">
+body {
+	margin: 10px;
+	background: #CCC;
+}
+
+#my_canvas {
+	background: #fff;
+	border: #000 1px solid;
+}
+</style>
+
+<script>
+	
+function initCanvas() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		var cW = ctx.canvas.width, cH = ctx.canvas.height;
+		// JSON array of enemies
+		var enemies = [ {"id" : "enemy1", "x" : 100, "y" : -20, "w" : 40, "h" : 20},
+					              {"id" : "enemy2", "x" : 225, "y" : -20, "w" : 40, "h" : 20},
+					              {"id" : "enemy3", "x" : 350, "y" : -20, "w" : 40, "h" : 20},
+					              {"id" : "enemy4", "x" : 100, "y" : -70, "w" : 40, "h" : 20},
+					              {"id" : "enemy5", "x" : 225, "y" : -70, "w" : 40, "h" : 20},
+					              {"id" : "enemy6", "x" : 350, "y" : -70, "w" : 40, "h" : 20}
+		];
+		
+		function  renderEnemies() {
+			// iterate throught the array of enemies
+			for (var i = 0; i < enemies.length; i++) {
+				// now draw them as blue rectangles
+				ctx.fillStyle = "blue";
+				ctx.fillRect(enemies[i].x, enemies[i].y+=.5, enemies[i].w, enemies[i].h);
+			}
+		}
+
+		function animate() {
+			// ctx.save();
+			ctx.clearRect(0, 0, cW, cH);
+			renderEnemies();
+			// ctx.restore();
+		}
+		var animateInterval = setInterval(animate, 30);
+
+		
+	}
+	
+	window.addEventListener('load', function(event) {
+		initCanvas();
+	});
+	
+	</script>
+
+</head>
+
+<body>
+	<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+	<script>
+
+</script>
+
+	<canvas id="my_canvas" width="500" height="350"></canvas>
+	<div id="controls">
+		<button id="left_btn">Move Left</button>
+		<button id="right_btn">Move Right</button>
+		<button id="fire_btn">Fire Missile</button>
+	</div>
+	<h3 id="status"></h3>
+
+</body>
+</html>
