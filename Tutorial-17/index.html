@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>HTML5 Canvas Tutorial lesson 17</title>
+	<style>
+		body { margin: 40px; background: #666; }
+		#my_canvas { background: #fff; border: #000 1px solid;}
+	</style>
+	
+	<script>
+	
+	function draw() {
+		var ctx = document.getElementById('my_canvas').getContext('2d');
+		console.log(ctx.canvas.id+" | "+ctx.canvas.width+" | "+ctx.canvas.height);
+		
+		// JSON object array, AKA an associative array
+		var buildings = [ {"id": "house", "x":100, "y": 100, "w":50, "h":50, "bg":"magenta"},
+		                  {"id": "grocery", "x":200, "y": 100, "w":50, "h":50, "bg":"green"},
+		                  {"id": "post_office", "x":300, "y": 100, "w":50, "h":50, "bg":"orange"},
+		                  ];
+		
+		for (var i = 0; i < buildings.length; i++ ) {
+			var b = buildings[i];
+			console.log("Drawing building: "+b.id);
+			ctx.fillStyle = b.bg;
+			ctx.fillRect(b.x, b.y, b.w, b.h);
+		}
+	}
+	
+	window.onload = draw;
+	</script>
+	
+</head>
+
+<body>
+<!-- 
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+-->
+<script>
+
+</script>
+
+<canvas id="my_canvas" width="800" height = "600"></canvas>
+
+
+</body>
+</html>
